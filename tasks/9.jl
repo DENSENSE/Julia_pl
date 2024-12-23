@@ -58,7 +58,7 @@ end
     - Использует систему координат (x, y) для отслеживания позиции
     - Определяет необходимость установки маркера по четности суммы координат
 """
-function result(robot)::nothing
+function result(robot)
     x = 0
     y = 0
     while !isborder(robot, West)

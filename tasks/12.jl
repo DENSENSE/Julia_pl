@@ -49,18 +49,29 @@ end
 # вспомогательная функция для движения вправо и проверки сверху
 function moverightandchecktop(r)
     count_of_walls = 0
-    gap_size = 0
-    was_wall_before = 0
+        was_wall_before = 0
+        counted = 0
+        once_wall = 0
     while !isborder(r, Ost)
         move!(r, Ost)
-        if !isborder(r, Nord) && was_wall_before == 0 && gap_size == 1
+        if isborder(r, Nord)
+            once_wall = 1
+            was_wall_before = 1
+            counted = 0
+        elseif !isborder(r, Nord) && isborder(r, Ost) && was_wall_before == 1 && once_wall == 1 || !isborder(r, Nord) && was_wall_before == 0 && counted == 0 && once_wall == 1 
             count_of_walls += 1
-            gap_size = 0
+            putmarker!(r)
+            counted = 1
+        elseif !isborder(r, Nord) && was_wall_before == 1
+            was_wall_before = 0
+        else
+            continue
         end
-        
+        println(counted)
     end
 
     while !isborder(r, West)
+        once_wall = 0
         move!(r, West)
     end
 
